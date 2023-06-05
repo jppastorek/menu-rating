@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import './App.css';
 import Form from './components/Form';
+const axios = require('axios');
 
 function App() {
 
@@ -58,11 +59,24 @@ function App() {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
+    axios.post('localhost:5000/user', {
+      first_name: this.state.firstName,
+      last_name: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password,
+      residence: this.state.location
+    })
+  }
+
+  const getUser = async (e) => {
+    e.preventDefault();
+    let result = await fetch('api/user/2');
+    console.log(result);
   }
 
   return (
     <>
-      <Form handleChangeInput={handleChangeInput} onSubmitForm={onSubmitForm}/>
+      <Form handleChangeInput={handleChangeInput} onSubmitForm={onSubmitForm} getUser={getUser}/>
     </>
   );
 }

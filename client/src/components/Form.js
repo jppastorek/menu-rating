@@ -1,7 +1,7 @@
 import React from "react";
 
 const Form = (props) => {
-  const { handleChangeInput, onSubmitForm } = props;
+  const { handleChangeInput, onSubmitForm, getUser } = props;
   return (
     <div id="container">
       <form action="" id="form" noValidate="">
@@ -80,15 +80,16 @@ const Form = (props) => {
           <input type="checkbox" name="terms" id="terms" />
           <label id="terms-label" htmlFor="terms">
             I confirm that I have read the 
-            <a href="#">Terms and Conditions</a>.
+            <a href="localhost:3000">Terms and Conditions</a>.
           </label>
         </div>
         <button type="submit" id="submit" onSubmit={onSubmitForm}>
           Accept &amp; Continue
         </button>
+        <button id="test" onClick={getUser}>Test</button>
       </form>
       <p>
-        Already have an account? <a href="#">Log in</a>
+        Already have an account? <a href="localhost:3000">Log in</a>
       </p>
     </div>
   );
