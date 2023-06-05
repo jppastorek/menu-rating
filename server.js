@@ -2,7 +2,7 @@ import User from "./api/User.js";
 import Ratings from "./api/Rating.js";
 import Item from "./api/Item.js";
 import express from "express";
-const port = 3000;
+const port = process.env.port || 5000;
 const db = "/home/jp/WebDev/menu-rating/restaurant.db";
 const userController = new User(db);
 const ratingController = new Ratings(db);
@@ -11,8 +11,8 @@ const app = express();
 import bodyParser from "body-parser";
 app.use(bodyParser.json());
 const jsonParser = bodyParser.json();
-const index = "/home/jp/WebDev/menu-rating/public/index.html";
-app.use(express.static("/home/jp/WebDev/menu-rating"));
+const index = "/home/jp/WebDev/menu-rating/client/public/index.html";
+app.use(express.static("/home/jp/WebDev/menu-rating/client"));
 
 app.get("/", (req, res) => {
   res.sendFile(index);
