@@ -1,82 +1,103 @@
 import React, { useState } from "react";
-import './App.css';
-import Form from './components/Form';
-const axios = require('axios');
+import "./App.css";
+import Form from "./components/Form";
 
 function App() {
-
   //need to add validation script for onBlur on the inputs
-  
+
   const [input, setInput] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    location: ""
+    location: "",
   });
-  
+
   const handleChangeInput = (e) => {
     switch (e.target.id) {
       case "firstName":
         setInput({
           ...input,
-          firstName: e.target.value
+          firstName: e.target.value,
         });
         break;
       case "lastName":
         setInput({
           ...input,
-          lastName: e.target.value
+          lastName: e.target.value,
         });
         break;
       case "email":
         setInput({
           ...input,
-          email: e.target.value
+          email: e.target.value,
         });
         break;
       case "password":
         setInput({
           ...input,
-          password: e.target.value
+          password: e.target.value,
         });
         break;
       case "confirmPassword":
         setInput({
           ...input,
-          confirmPassword: e.target.value
+          confirmPassword: e.target.value,
         });
         break;
       case "location":
         setInput({
           ...input,
-          location: e.target.value
+          location: e.target.value,
         });
         break;
     }
-  }
+  };
 
-  const onSubmitForm = (e) => {
-    e.preventDefault();
-    axios.post('localhost:5000/user', {
-      first_name: this.state.firstName,
-      last_name: this.state.lastName,
-      email: this.state.email,
-      password: this.state.password,
-      residence: this.state.location
-    })
-  }
+  const onSubmitForm = async (e) => {
+    // e.preventDefault();
+    //somehow I need to get the body into JSON, but the form is sending query 
+    let data = {
+      "first_name": this.firstName,
+      "last_name": this.lastName,
+      "email": this.email,
+      "password": this.password,
+      "residence": this.location
+    }
+    alert(`Submitting: ${data}`);
+    const response = await fetch('localhost:5000/api/user', {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(data),
+    });
+    alert(response.json());
+    return response.json();
+  };
 
   const getUser = async (e) => {
     e.preventDefault();
-    let result = await fetch('api/user/2');
-    console.log(result);
-  }
+    let num = Math.floor(Math.random() * (22 - 1 + 1)) + 1;
+    let response = await fetch(`/api/user/${num}`);
+    const jsonData = await response.json();
+    console.log(jsonData);
+    alert(jsonData.first_name + ' sucks balls.');
+  };
 
   return (
     <>
-      <Form handleChangeInput={handleChangeInput} onSubmitForm={onSubmitForm} getUser={getUser}/>
+      <Form
+        handleChangeInput={handleChangeInput}
+        onSubmitForm={onSubmitForm}
+        getUser={getUser}
+      />
     </>
   );
 }

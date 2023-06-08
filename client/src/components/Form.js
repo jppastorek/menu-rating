@@ -4,7 +4,7 @@ const Form = (props) => {
   const { handleChangeInput, onSubmitForm, getUser } = props;
   return (
     <div id="container">
-      <form action="" id="form" noValidate="">
+      <form action="api/user" method="post" id="form" noValidate="">
         <h2 className="header">Create an account.</h2>
         <div className="form name">
           <label htmlFor="firstName">Name *</label>
@@ -13,7 +13,7 @@ const Form = (props) => {
             name="firstName"
             id="firstName"
             placeholder="first"
-            autofocus=""
+            autoFocus=""
             required=""
             onChange={handleChangeInput}
           />
@@ -23,7 +23,7 @@ const Form = (props) => {
             name="lastName"
             id="lastName"
             placeholder="last"
-            autofocus=""
+            autoFocus=""
             required=""
             onChange={handleChangeInput}
           />
@@ -36,7 +36,7 @@ const Form = (props) => {
             name="email"
             id="email"
             placeholder="name@example.com"
-            autofocus=""
+            autoFocus=""
             autoComplete="email"
             required=""
             onChange={handleChangeInput}
