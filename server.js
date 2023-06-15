@@ -27,18 +27,19 @@ app.get("/api/user/:id", async (req, res) => {
 
 //POST USER
 app.post("/api/user", jsonParser, async (req, res) => {
-  let id = userController.addNewUser(
-    req.body.first_name,
-    req.body.last_name,
-    req.body.email,
-    req.body.password,
-    req.body.residence
-  );
-  res.send(
-    `Successfully added ${req.body.first_name} ${req.body.last_name} at ID ${
-      (await id).lastID
-    }.`
-  );
+  console.log(`Adding ${req.body.first_name}`)
+  // let id = userController.addNewUser(
+  //   req.body.first_name,
+  //   req.body.last_name,
+  //   req.body.email,
+  //   req.body.password,
+  //   req.body.residence
+  // );
+  // res.send(
+  //   `Successfully added ${req.body.first_name} ${req.body.last_name} at ID ${
+  //     (await id).lastID
+  //   }.`
+  // );
 });
 
 //DELETE USER

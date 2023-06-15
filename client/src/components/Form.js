@@ -1,7 +1,7 @@
 import React from "react";
 
 const Form = (props) => {
-  const { handleChangeInput, onSubmitForm, getUser } = props;
+  const { handleChangeInput, onSubmitForm, getUser, firstValue, lastValue, emailValue, passwordValue, confirmValue, residenceValue } = props;
   return (
     <div id="container">
       <form action="api/user" method="post" id="form" noValidate="">
@@ -16,6 +16,7 @@ const Form = (props) => {
             autoFocus=""
             required=""
             onChange={handleChangeInput}
+            value={firstValue}
           />
           <span className="error" />
           <input
@@ -26,6 +27,7 @@ const Form = (props) => {
             autoFocus=""
             required=""
             onChange={handleChangeInput}
+            value={lastValue}
           />
           <span className="error" />
         </div>
@@ -40,6 +42,7 @@ const Form = (props) => {
             autoComplete="email"
             required=""
             onChange={handleChangeInput}
+            value={emailValue}
           />
           <span className="error" />
         </div>
@@ -53,6 +56,7 @@ const Form = (props) => {
             minLength={8}
             required=""
             onChange={handleChangeInput}
+            value={passwordValue}
           />
           <span className="error" />
           <input
@@ -63,6 +67,7 @@ const Form = (props) => {
             minLength={8}
             required=""
             onChange={handleChangeInput}
+            value={confirmValue}
           />
           <span className="error" />
         </div>
@@ -74,6 +79,7 @@ const Form = (props) => {
               id="location"
               placeholder="Enter your location"
               onChange={handleChangeInput}
+              value={residenceValue}
             />
         </div>
         <div className="form terms">

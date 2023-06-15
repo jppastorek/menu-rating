@@ -56,30 +56,30 @@ function App() {
   };
 
   const onSubmitForm = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     //somehow I need to get the body into JSON, but the form is sending query 
     let data = {
-      "first_name": this.firstName,
-      "last_name": this.lastName,
-      "email": this.email,
-      "password": this.password,
-      "residence": this.location
+      first_name: input.firstName,
+      last_name: input.lastName,
+      email: input.email,
+      password: input.password,
+      residence: input.location
     }
-    alert(`Submitting: ${data}`);
-    const response = await fetch('localhost:5000/api/user', {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify(data),
-    });
-    alert(response.json());
-    return response.json();
+    console.log(`Submitting: ${data}`);
+    // const response = await fetch('localhost:5000/api/user', {
+    //   method: "POST",
+    //   mode: "cors",
+    //   cache: "no-cache",
+    //   credentials: "same-origin",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   redirect: "follow",
+    //   referrerPolicy: "no-referrer",
+    //   body: JSON.stringify(data),
+    // });
+    // alert(response.json());
+    // return response.json();
   };
 
   const getUser = async (e) => {
@@ -97,6 +97,12 @@ function App() {
         handleChangeInput={handleChangeInput}
         onSubmitForm={onSubmitForm}
         getUser={getUser}
+        firstValue={input.firstName}
+        lastValue={input.lastName}
+        emailValue={input.email}
+        passwordValue={input.password}
+        confirmValue={input.confirmPassword}
+        residenceValue={input.location}
       />
     </>
   );
