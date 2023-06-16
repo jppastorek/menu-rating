@@ -65,21 +65,15 @@ function App() {
       password: input.password,
       residence: input.location
     }
-    console.log(`Submitting: ${data}`);
-    // const response = await fetch('localhost:5000/api/user', {
-    //   method: "POST",
-    //   mode: "cors",
-    //   cache: "no-cache",
-    //   credentials: "same-origin",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   redirect: "follow",
-    //   referrerPolicy: "no-referrer",
-    //   body: JSON.stringify(data),
-    // });
-    // alert(response.json());
-    // return response.json();
+    console.log(`Submitting: ${data.first_name}`);
+    const response = await fetch('http://localhost:5000/api/user', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return response.json();
   };
 
   const getUser = async (e) => {

@@ -4,7 +4,7 @@ const Form = (props) => {
   const { handleChangeInput, onSubmitForm, getUser, firstValue, lastValue, emailValue, passwordValue, confirmValue, residenceValue } = props;
   return (
     <div id="container">
-      <form action="api/user" method="post" id="form" noValidate="">
+      <form action="api/user" method="post" id="form" noValidate="" onSubmit={onSubmitForm}>
         <h2 className="header">Create an account.</h2>
         <div className="form name">
           <label htmlFor="firstName">Name *</label>
@@ -89,7 +89,7 @@ const Form = (props) => {
             <a href="localhost:3000">Terms and Conditions</a>.
           </label>
         </div>
-        <button type="submit" id="submit" onSubmit={onSubmitForm}>
+        <button type="submit" id="submit">
           Accept &amp; Continue
         </button>
         <button id="test" onClick={getUser}>Test</button>
