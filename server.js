@@ -32,7 +32,7 @@ app.get("/api/user/:id", async (req, res) => {
 app.post("/api/user", jsonParser, async (req, res) => {
   console.log(`Adding ${req.body.first_name}`);
   
-  let id = userController.addNewUser(
+  let id = await userController.addNewUser(
     req.body.first_name,
     req.body.last_name,
     req.body.email,
@@ -40,9 +40,8 @@ app.post("/api/user", jsonParser, async (req, res) => {
     req.body.residence
   );
   res.send(
-    `Successfully added ${req.body.first_name} ${req.body.last_name} at ID ${
-      (await id).lastID
-    }.`
+    {"status": `Successfully added ${req.body.first_name} ${req.body.last_name} at ID ${
+      (await id).lastID}`}
   );
 });
 

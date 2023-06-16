@@ -73,6 +73,7 @@ function App() {
       },
       body: JSON.stringify(data),
     });
+    console.log(response);
     return response.json();
   };
 
