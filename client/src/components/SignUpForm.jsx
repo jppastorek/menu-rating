@@ -1,6 +1,6 @@
 import React from "react";
 
-const Form = (props) => {
+const SignUpForm = (props) => {
   const { handleChangeInput, onSubmitForm, getUser, firstValue, lastValue, emailValue, passwordValue, confirmValue, residenceValue } = props;
   return (
     <div id="container">
@@ -101,4 +101,4 @@ const Form = (props) => {
   );
 };
 
-export default Form;
+export default SignUpForm;

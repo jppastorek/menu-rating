@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "./App.css";
-import Form from "./components/Form";
+import SignUpForm from "./components/SignUpForm";
+import ItemDisplay from "./components/ItemDisplay";
+import Home from "./components/Home";
+import { TextField } from "@mui/material";
 
 function App() {
   //need to add validation script for onBlur on the inputs
@@ -12,6 +15,8 @@ function App() {
     password: "",
     confirmPassword: "",
     location: "",
+    item: "",
+    items: [],
   });
 
   const handleChangeInput = (e) => {
@@ -52,21 +57,27 @@ function App() {
           location: e.target.value,
         });
         break;
+      case "item":
+        setInput({
+          ...input,
+          item: e.target.value,
+        });
+        break;
     }
   };
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
-    //somehow I need to get the body into JSON, but the form is sending query 
+    //somehow I need to get the body into JSON, but the form is sending query
     let data = {
       first_name: input.firstName,
       last_name: input.lastName,
       email: input.email,
       password: input.password,
-      residence: input.location
-    }
+      residence: input.location,
+    };
     console.log(`Submitting: ${data.first_name}`);
-    const response = await fetch('http://localhost:5000/api/user', {
+    const response = await fetch("http://localhost:5000/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -83,12 +94,23 @@ function App() {
     let response = await fetch(`/api/user/${num}`);
     const jsonData = await response.json();
     console.log(jsonData);
-    alert(jsonData.first_name + ' sucks balls.');
+    alert(jsonData.first_name + " is awesome.");
+  };
+
+  const getItem = async () => {
+    let id = input.item;
+    let response = await fetch(`/api/item/${id}`);
+    const jsonData = await response.json();
+    console.log(jsonData);
+    setInput({
+      ...input,
+      items: input.items.concat(jsonData),
+    });
   };
 
   return (
     <>
-      <Form
+      <SignUpForm
         handleChangeInput={handleChangeInput}
         onSubmitForm={onSubmitForm}
         getUser={getUser}
@@ -99,6 +121,11 @@ function App() {
         confirmValue={input.confirmPassword}
         residenceValue={input.location}
       />
+
+      <ItemDisplay items={input.items} />
+      <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+      <TextField id="filled-basic" label="Filled" variant="filled" required size="medium" />
+      <TextField id="standard-basic" label="Standard" variant="standard" />
     </>
   );
 }
