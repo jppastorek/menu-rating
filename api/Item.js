@@ -50,6 +50,17 @@ export default class Item {
     return result;
   }
 
+  async searchItems(value) {
+    let db = await this.openDB();
+    const result = await db.all(`
+      SELECT *
+      FROM items
+      WHERE item_name LIKE '%${value}%' OR item_description LIKE '%${value}%';
+    `);
+    await db.close();
+    return result;
+  }
+
   async updateItem(item_id, item_name, restaurant_id, price, item_description) {
     let db = await this.openDB();
     const result = await db.run(`

@@ -50,6 +50,15 @@ app.delete("/api/user/:id", async (req, res) => {
   res.send(await userController.deleteUser(req.params["id"]));
 });
 
+//------------------------------------ITEM-------------------------------
+app.get("/api/item/:id", async (req, res) => {
+  res.send(await itemController.getItem(req.params["id"]));
+})
+
+app.get("/api/search/item/:string", async (req, res) => {
+  console.log(res.send(await itemController.searchItems(req.params[":string"])));
+})
+
 //------------------------------------RATING-----------------------------
 
 //GET RATING

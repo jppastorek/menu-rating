@@ -1,7 +1,8 @@
 import React from "react";
+import { Button } from "@mui/material";
 
 const SearchBar = (props) => {
-  const { input, handleChangeInput, getItem } = props;
+  const { input, handleChangeInput, search } = props;
   return (
     <div className="search">
       <input
@@ -10,7 +11,7 @@ const SearchBar = (props) => {
         value={input.item}
         onChange={handleChangeInput}
       />
-      <button onClick={getItem}>Get Item</button>
+      <Button variant="contained" onClick={search}>Search</Button>
     </div>
   );
 };

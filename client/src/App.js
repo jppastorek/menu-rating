@@ -4,6 +4,7 @@ import SignUpForm from "./components/SignUpForm";
 import ItemDisplay from "./components/ItemDisplay";
 import Home from "./components/Home";
 import { TextField } from "@mui/material";
+import SearchBar from "./components/SearchBar";
 
 function App() {
   //need to add validation script for onBlur on the inputs
@@ -97,9 +98,10 @@ function App() {
     alert(jsonData.first_name + " is awesome.");
   };
 
-  const getItem = async () => {
-    let id = input.item;
-    let response = await fetch(`/api/item/${id}`);
+  const search = async () => {
+    let value = input.item;
+    let response = await fetch(`/api/search/item/${value}`);
+    console.log(response);
     const jsonData = await response.json();
     console.log(jsonData);
     setInput({
@@ -110,7 +112,7 @@ function App() {
 
   return (
     <>
-      <SignUpForm
+      {/* <SignUpForm
         handleChangeInput={handleChangeInput}
         onSubmitForm={onSubmitForm}
         getUser={getUser}
@@ -120,12 +122,14 @@ function App() {
         passwordValue={input.password}
         confirmValue={input.confirmPassword}
         residenceValue={input.location}
-      />
+      /> */}
 
-      <ItemDisplay items={input.items} />
-      <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+      
+      {/* <TextField id="outlined-basic" label="Outlined" variant="outlined" />
       <TextField id="filled-basic" label="Filled" variant="filled" required size="medium" />
-      <TextField id="standard-basic" label="Standard" variant="standard" />
+      <TextField id="standard-basic" label="Standard" variant="standard" /> */}
+      <SearchBar input={input} handleChangeInput={handleChangeInput} search={search}/>
+      <ItemDisplay items={input.items} />
     </>
   );
 }
