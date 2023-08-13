@@ -20,6 +20,10 @@ function App() {
     items: [],
   });
 
+  const [searchResults, setSearchResults] = useState({
+    items: [],
+  })
+
   const handleChangeInput = (e) => {
     switch (e.target.id) {
       case "firstName":
@@ -101,12 +105,9 @@ function App() {
   const search = async () => {
     let value = input.item;
     let response = await fetch(`/api/search/item/${value}`);
-    console.log(response);
     const jsonData = await response.json();
-    console.log(jsonData);
-    setInput({
-      ...input,
-      items: input.items.concat(jsonData),
+    setSearchResults({
+      items: jsonData,
     });
   };
 
@@ -129,7 +130,7 @@ function App() {
       <TextField id="filled-basic" label="Filled" variant="filled" required size="medium" />
       <TextField id="standard-basic" label="Standard" variant="standard" /> */}
       <SearchBar input={input} handleChangeInput={handleChangeInput} search={search}/>
-      <ItemDisplay items={input.items} />
+      <ItemDisplay items={searchResults.items} />
     </>
   );
 }
