@@ -1,7 +1,7 @@
 import React from "react";
 
 const Item = (props) => {
-  const { image, name, price, rating, description } = props;
+  const { image, name, price, rating, description, num_of_ratings } = props;
   return (
     <div className="item-container">
       <div className="item-image">
@@ -16,7 +16,8 @@ const Item = (props) => {
           <div className="like-button">like</div>
         </div>
         <div className="item-info-row2">
-          <div className="item-rating">{rating}</div>
+          <div className="item-rating">Rating: {rating}</div>
+          <div className="item-num-ratings">({num_of_ratings})</div>
           <div className="item-description">{description}</div>
         </div>
       </div>

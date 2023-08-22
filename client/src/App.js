@@ -21,6 +21,7 @@ function App() {
   });
 
   const [searchResults, setSearchResults] = useState({
+    item: '',
     items: [],
   })
 
@@ -107,6 +108,7 @@ function App() {
     let response = await fetch(`/api/search/item/${value}`);
     const jsonData = await response.json();
     setSearchResults({
+      item: input.item,
       items: jsonData,
     });
   };
@@ -130,7 +132,7 @@ function App() {
       <TextField id="filled-basic" label="Filled" variant="filled" required size="medium" />
       <TextField id="standard-basic" label="Standard" variant="standard" /> */}
       <SearchBar input={input} handleChangeInput={handleChangeInput} search={search}/>
-      <ItemDisplay items={searchResults.items} />
+      <ItemDisplay items={searchResults.items} searchValue={searchResults.item}/>
     </>
   );
 }
