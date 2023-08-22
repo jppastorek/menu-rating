@@ -56,7 +56,8 @@ app.get("/api/item/:id", async (req, res) => {
 })
 
 app.get("/api/search/item/:value", async (req, res) => {
-  res.send(await itemController.searchItems(req.params["value"]));
+  let result = await itemController.searchItems(req.params["value"]);
+  res.send(result);
 })
 
 //------------------------------------RATING-----------------------------
