@@ -53,11 +53,13 @@ export default class Item {
   async searchItems(value) {
     let db = await this.openDB();
     const result = await db.all(`
-    SELECT items.*, AVG(ratings.rating) as avg_rating, COUNT(ratings.rating) as num_of_ratings
-    FROM items
-    LEFT JOIN ratings ON ratings.item_id=items.item_id
-    WHERE items.item_description LIKE '%${value}%' OR items.item_name LIKE '%${value}%'
-    GROUP BY items.item_id
+    SELECT items.*, AVG(ratings.rating) as avg_rating, COUNT(ratings.rating) as num_of_ratings, restaurants.restaurant_name
+FROM items
+LEFT JOIN ratings ON ratings.item_id=items.item_id
+LEFT JOIN restaurants ON restaurants.restaurant_id=items.restaurant_id
+WHERE items.item_description LIKE '%${value}%' OR items.item_name LIKE '%${value}%' OR restaurants.restaurant_name LIKE '%${value}%'
+GROUP BY items.item_id
+
     
     `);
     await db.close();

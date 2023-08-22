@@ -144,7 +144,7 @@ input:focus:invalid {
 
 .item-container {
   height: 400px;
-  width: 400px;
+  width: 600px;
   border: 1px solid black;
 }
 

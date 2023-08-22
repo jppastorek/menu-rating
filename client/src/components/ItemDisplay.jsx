@@ -5,6 +5,7 @@ const ItemDisplay = (props) => {
   const { items, searchValue } = props;
 
   if (items.length) {
+    //how do I include the total number of results like items.length?
     return items.map((item) => {
       return (
         <Item
@@ -14,13 +15,19 @@ const ItemDisplay = (props) => {
           rating={item.avg_rating}
           num_of_ratings={item.num_of_ratings}
           description={item.item_description}
+          restaurant={item.restaurant_name}
         />
       );
     });
-  }else {
-    return `${searchValue} not found.`
+  } else {
+    return (
+      <p>
+        {searchValue
+          ? `${searchValue} not found.`
+          : "Search an item or restaurant."}
+      </p>
+    );
   }
-  
 };
 
 export default ItemDisplay;
