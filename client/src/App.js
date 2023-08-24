@@ -5,6 +5,7 @@ import ItemDisplay from "./components/ItemDisplay";
 import Home from "./components/Home";
 import { TextField } from "@mui/material";
 import SearchBar from "./components/SearchBar";
+import Review from "./components/Review";
 
 function App() {
   //need to add validation script for onBlur on the inputs
@@ -18,6 +19,8 @@ function App() {
     location: "",
     item: "",
     items: [],
+    comment: "",
+    rating: "",
   });
 
   const [searchResults, setSearchResults] = useState({
@@ -69,6 +72,11 @@ function App() {
           item: e.target.value,
         });
         break;
+      case "comment":
+        setInput({
+          ...input,
+          comment: e.target.value,
+        });
     }
   };
 
@@ -105,13 +113,27 @@ function App() {
 
   const search = async () => {
     let value = input.item;
-    let response = await fetch(`/api/search/item/${value}`);
+    const response = await fetch(`/api/search/item/${value}`);
     const jsonData = await response.json();
     setSearchResults({
       item: input.item,
       items: jsonData,
     });
   };
+
+  const onClickStar = (num) => {
+    setInput({
+      ...input,
+      rating: num,
+    })
+  };
+
+  const leaveReview = async (item_id) => {
+    let rating = input.rating;
+    let comment = input.comment;
+    const response = await fetch(`/`, {method: "POST"});
+
+  }
 
   return (
     <>
@@ -131,6 +153,7 @@ function App() {
       {/* <TextField id="outlined-basic" label="Outlined" variant="outlined" />
       <TextField id="filled-basic" label="Filled" variant="filled" required size="medium" />
       <TextField id="standard-basic" label="Standard" variant="standard" /> */}
+      <Review input={input} handleChangeInput={handleChangeInput} leaveReview={leaveReview} onClickStar={onClickStar} />
       <SearchBar input={input} handleChangeInput={handleChangeInput} search={search}/>
       <ItemDisplay items={searchResults.items} searchValue={searchResults.item}/>
     </>

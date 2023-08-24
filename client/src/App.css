@@ -195,3 +195,16 @@ input:focus:invalid {
 .item-description {
   flex-grow: 1;
 }
+
+.review-star-container {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+}
+
+.review-star {
+  border: 1px solid black;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}

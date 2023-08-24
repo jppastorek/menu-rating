@@ -20,6 +20,7 @@ const Item = (props) => {
           <div className="item-num-ratings">({num_of_ratings})</div>
           <div className="item-restaurant">{restaurant}</div>
           <div className="item-description">{description}</div>
+          <div className="item-write-review">Write a review</div>
         </div>
       </div>
     </div>
