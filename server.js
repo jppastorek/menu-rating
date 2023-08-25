@@ -63,16 +63,16 @@ app.get("/api/search/item/:value", async (req, res) => {
 //------------------------------------RATING-----------------------------
 
 //GET RATING
-app.get("/api/rating/:id", async (req, res) => {
-  res.send(await ratingController.getRating(req.params["id"]));
-});
+// app.get("/api/rating/:id", async (req, res) => {
+//   res.send(await ratingController.getRating(req.params["id"]));
+// });
 
 //POST RATING
-app.post("/api/rating", jsonParser, async (req, res) => {
+app.post("/api/item/:id/rate", jsonParser, async (req, res) => {
   let date = new Date();
   let id = ratingController.addRating(
     req.body.user_id,
-    req.body.item_id,
+    req.params["id"],
     req.body.rating,
     req.body.comment,
     date

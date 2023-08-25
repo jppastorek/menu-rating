@@ -24,9 +24,9 @@ function App() {
   });
 
   const [searchResults, setSearchResults] = useState({
-    item: '',
+    item: "",
     items: [],
-  })
+  });
 
   const handleChangeInput = (e) => {
     switch (e.target.id) {
@@ -125,15 +125,24 @@ function App() {
     setInput({
       ...input,
       rating: num,
-    })
+    });
   };
 
-  const leaveReview = async (item_id) => {
-    let rating = input.rating;
-    let comment = input.comment;
-    const response = await fetch(`/`, {method: "POST"});
-
-  }
+  const leaveReview = async (item_id, user_id) => {
+    const response = await fetch(`/api/item/${item_id}/rate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        rating: input.rating,
+        comment: input.comment,
+        user_id: user_id,
+        item_id: item_id,
+      }),
+    });
+    return response;
+  };
 
   return (
     <>
@@ -149,13 +158,24 @@ function App() {
         residenceValue={input.location}
       /> */}
 
-      
       {/* <TextField id="outlined-basic" label="Outlined" variant="outlined" />
       <TextField id="filled-basic" label="Filled" variant="filled" required size="medium" />
       <TextField id="standard-basic" label="Standard" variant="standard" /> */}
-      <Review input={input} handleChangeInput={handleChangeInput} leaveReview={leaveReview} onClickStar={onClickStar} />
-      <SearchBar input={input} handleChangeInput={handleChangeInput} search={search}/>
-      <ItemDisplay items={searchResults.items} searchValue={searchResults.item}/>
+      <Review
+        input={input}
+        handleChangeInput={handleChangeInput}
+        leaveReview={leaveReview}
+        onClickStar={onClickStar}
+      />
+      <SearchBar
+        input={input}
+        handleChangeInput={handleChangeInput}
+        search={search}
+      />
+      <ItemDisplay
+        items={searchResults.items}
+        searchValue={searchResults.item}
+      />
     </>
   );
 }
