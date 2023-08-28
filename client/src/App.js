@@ -7,6 +7,7 @@ import { TextField } from "@mui/material";
 import SearchBar from "./components/SearchBar";
 import Review from "./components/Review";
 
+
 function App() {
   //need to add validation script for onBlur on the inputs
 
