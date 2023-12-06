@@ -4,7 +4,7 @@ import Item from "./api/Item.js";
 import express from "express";
 import cors from "cors";
 const port = process.env.port || 5000;
-const db = "/home/jp/WebDev/menu-rating/restaurant.db";
+const db = process.env.DATABASE_PATH || "C:/Users/jp/WebDev/menu-rating/restaurant2.db";
 const userController = new User(db);
 const ratingController = new Ratings(db);
 const itemController = new Item(db);
@@ -56,6 +56,7 @@ app.get("/api/item/:id", async (req, res) => {
 })
 
 app.get("/api/search/item/:value", async (req, res) => {
+  console.log(db);
   let result = await itemController.searchItems(req.params["value"]);
   res.send(result);
 })
