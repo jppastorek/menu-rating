@@ -89,7 +89,7 @@ const SignUpForm = (props) => {
             <a href="localhost:3000">Terms and Conditions</a>.
           </label>
         </div>
-        <button type="submit" id="submit">
+        <button type="submit" id="submit" onClick={onSubmitForm}>
           Accept &amp; Continue
         </button>
         <button id="test" onClick={getUser}>Test</button>

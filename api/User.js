@@ -33,7 +33,19 @@ export default class User {
       FROM users
       WHERE user_id = '${user_id}'
     `);
+    await db.close();
     return result;
+  }
+
+  async login(email, password) {
+    let db = await this.openDB();
+    const result = await db.get(`
+      SELECT *
+      FROM users
+      WHERE email = '${email}' AND password = '${password}'
+    `);
+    await db.close();
+    if (result) return result;
   }
 
   async updateUser(user_id, column, newData) {

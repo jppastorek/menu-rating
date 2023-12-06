@@ -4,7 +4,8 @@ import Item from "./api/Item.js";
 import express from "express";
 import cors from "cors";
 const port = process.env.port || 5000;
-const db = process.env.DATABASE_PATH || "C:/Users/jp/WebDev/menu-rating/restaurant2.db";
+const db = "C:/Users/jp/WebDev/menu-rating/restaurant.db";
+// const db = process.env.DATABASE_PATH || "C:/Users/jp/WebDev/menu-rating/restaurant.db";
 const userController = new User(db);
 const ratingController = new Ratings(db);
 const itemController = new Item(db);
@@ -28,7 +29,7 @@ app.get("/api/user/:id", async (req, res) => {
   res.send(await userController.getUser(req.params["id"]));
 });
 
-//POST USER
+//POST NEW USER
 app.post("/api/user", jsonParser, async (req, res) => {
   console.log(`Adding ${req.body.first_name}`);
   
@@ -43,6 +44,15 @@ app.post("/api/user", jsonParser, async (req, res) => {
     {"status": `Successfully added ${req.body.first_name} ${req.body.last_name} at ID ${
       (await id).lastID}`}
   );
+});
+
+
+//USER LOG IN
+app.post("/api/login", async (req, res) => {
+  let user = await userController.login(req.body.email, req.body.password);
+  user ? console.log(user) : console.log("Try a different email or password.");
+  res.send("ok");
+  // if (user) return user;
 });
 
 //DELETE USER

@@ -216,3 +216,9 @@ input:focus:invalid {
 .selected {
   background-color: gold;
 }
+
+
+#loginButton {
+  width: 100px;
+  margin: 10px auto;
+}
