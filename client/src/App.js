@@ -161,7 +161,7 @@ function App() {
 
   return (
     <>
-      {/* <SignUpForm
+      <SignUpForm
         handleChangeInput={handleChangeInput}
         onSubmitForm={onSubmitForm}
         getUser={getUser}
@@ -171,7 +171,7 @@ function App() {
         passwordValue={input.password}
         confirmValue={input.confirmPassword}
         residenceValue={input.location}
-      /> */}
+      />
 
       <LoginForm
         handleChangeInput={handleChangeInput}

@@ -1,5 +1,6 @@
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
+import bcrypt from "bcrypt";
 sqlite3.verbose();
 
 //TODO ----------Need to add a column for a timestamp of when user was created so i can have a history
@@ -18,9 +19,10 @@ export default class User {
 
   async addNewUser(firstName, lastName, email, password, residence) {
     const db = await this.openDB();
+    const hashedPassword = bcrypt.hashSync(password, 5);
     const result = await db.run(`
       INSERT INTO users (first_name, last_name, email, password, residence)
-      VALUES ('${firstName}', '${lastName}', '${email}', '${password}', '${residence}');
+      VALUES ('${firstName}', '${lastName}', '${email}', '${hashedPassword}', '${residence}');
       `);
     await db.close();
     return result;
@@ -39,10 +41,12 @@ export default class User {
 
   async login(email, password) {
     let db = await this.openDB();
+    const hash = bcrypt.hashSync(password, 5);
+    console.log(hash);
     const result = await db.get(`
       SELECT *
       FROM users
-      WHERE email = '${email}' AND password = '${password}'
+      WHERE email = '${email}' AND password = '${hash}'
     `);
     await db.close();
     if (result) return result;
