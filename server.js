@@ -50,7 +50,7 @@ app.post("/api/user", jsonParser, async (req, res) => {
 //USER LOG IN
 app.post("/api/login", async (req, res) => {
   let user = await userController.login(req.body.email, req.body.password);
-  user ? console.log(user) : console.log("Try a different email or password.");
+  user ? console.log("Login success!") : console.log("Try a different email or password.");
   res.send("ok");
   // if (user) return user;
 });

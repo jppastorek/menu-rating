@@ -41,15 +41,23 @@ export default class User {
 
   async login(email, password) {
     let db = await this.openDB();
-    const hash = bcrypt.hashSync(password, 5);
-    console.log(hash);
     const result = await db.get(`
       SELECT *
       FROM users
-      WHERE email = '${email}' AND password = '${hash}'
+      WHERE email = '${email}'
     `);
+    console.log(result.user_id);
+    let authenticated = bcrypt.compareSync(password, result.password);
+    if (authenticated) {
+      let timeIn = new Date();
+      let expiration = new Date();
+      const loggedIn = await db.run(`
+      INSERT INTO loggedInUsers (user_id, timeIn, expiration)
+      VALUES ('${result.user_id}', '${timeIn}', '${expiration}');
+      `);
+    }
     await db.close();
-    if (result) return result;
+    if (authenticated) return authenticated;
   }
 
   async updateUser(user_id, column, newData) {
