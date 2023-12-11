@@ -50,7 +50,14 @@ export default class User {
     let authenticated = bcrypt.compareSync(password, result.password);
     if (authenticated) {
       let timeIn = new Date();
-      let expiration = new Date();
+      let expiration = new Date(
+        timeIn.getFullYear(),
+        timeIn.getMonth(),
+        timeIn.getDate() + 1,
+        timeIn.getHours(),
+        timeIn.getMinutes(),
+        timeIn.getSeconds()
+      );
       const loggedIn = await db.run(`
       INSERT INTO loggedInUsers (user_id, timeIn, expiration)
       VALUES ('${result.user_id}', '${timeIn}', '${expiration}');
