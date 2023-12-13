@@ -17,7 +17,6 @@ const index = "/home/jp/WebDev/menu-rating/client/public/index.html";
 app.use(express.static("/home/jp/WebDev/menu-rating/client"));
 app.use(cors());
 
-
 app.get("/", (req, res) => {
   res.sendFile(index);
 });
@@ -32,7 +31,7 @@ app.get("/api/user/:id", async (req, res) => {
 //POST NEW USER
 app.post("/api/user", jsonParser, async (req, res) => {
   console.log(`Adding ${req.body.first_name}`);
-  
+
   let id = await userController.addNewUser(
     req.body.first_name,
     req.body.last_name,
@@ -40,19 +39,29 @@ app.post("/api/user", jsonParser, async (req, res) => {
     req.body.password,
     req.body.residence
   );
-  res.send(
-    {"status": `Successfully added ${req.body.first_name} ${req.body.last_name} at ID ${
-      (await id).lastID}`}
-  );
+  res.send({
+    status: `Successfully added ${req.body.first_name} ${
+      req.body.last_name
+    } at ID ${(await id).lastID}`,
+  });
 });
-
 
 //USER LOG IN
 app.post("/api/login", async (req, res) => {
   let user = await userController.login(req.body.email, req.body.password);
-  user ? console.log("Login success!") : console.log("Try a different email or password.");
+  user
+    ? console.log("Login success!")
+    : console.log("Try a different email or password.");
   res.send("ok");
   // if (user) return user;
+});
+
+//USER VALIDATE EMAIL
+app.post("/api/user/:id/validate", async (req, res) => {
+  //some code
+  let validated = await userController.login(req.body.code);
+  validated ? res.send("ok") : res.send("not ok");
+  return res.status;
 });
 
 //DELETE USER
@@ -63,13 +72,13 @@ app.delete("/api/user/:id", async (req, res) => {
 //------------------------------------ITEM-------------------------------
 app.get("/api/item/:id", async (req, res) => {
   res.send(await itemController.getItem(req.params["id"]));
-})
+});
 
 app.get("/api/search/item/:value", async (req, res) => {
   console.log(db);
   let result = await itemController.searchItems(req.params["value"]);
   res.send(result);
-})
+});
 
 //------------------------------------RATING-----------------------------
 

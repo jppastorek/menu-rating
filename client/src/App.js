@@ -7,6 +7,7 @@ import { TextField } from "@mui/material";
 import SearchBar from "./components/SearchBar";
 import Review from "./components/Review";
 import LoginForm from "./components/Login";
+import ValidateForm from "./components/Validate";
 
 function App() {
   //need to add validation script for onBlur on the inputs
@@ -159,6 +160,19 @@ function App() {
     return response;
   };
 
+  const onValidate = async (code) => {
+    const response = await fetch(`/api/user/:id/validate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        code: code
+      }),
+    });
+    return response;
+  }
+
   return (
     <>
       <SignUpForm
@@ -171,6 +185,12 @@ function App() {
         passwordValue={input.password}
         confirmValue={input.confirmPassword}
         residenceValue={input.location}
+      />
+
+      <ValidateForm
+        handleChangeInput={handleChangeInput}
+        onsubmit={onSubmitForm}
+        validationCode={"validationCode"}
       />
 
       <LoginForm
