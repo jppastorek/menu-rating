@@ -23,6 +23,7 @@ function App() {
     items: [],
     comment: "",
     rating: "",
+    code: "",
   });
 
   const [searchResults, setSearchResults] = useState({
@@ -78,6 +79,12 @@ function App() {
         setInput({
           ...input,
           comment: e.target.value,
+        });
+        break;
+      case "code":
+        setInput({
+          ...input,
+          code: e.target.value,
         });
     }
   };
@@ -157,6 +164,8 @@ function App() {
         password: password,
       }),
     });
+    const jsonData = await response.json();
+    document.cookie = `key=${jsonData.user.user_id}; SameSite=Lax`;
     return response;
   };
 
@@ -167,11 +176,11 @@ function App() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        code: code
+        code: code,
       }),
     });
     return response;
-  }
+  };
 
   return (
     <>
@@ -189,7 +198,7 @@ function App() {
 
       <ValidateForm
         handleChangeInput={handleChangeInput}
-        onsubmit={onSubmitForm}
+        onSubmit={onValidate}
         validationCode={"validationCode"}
       />
 

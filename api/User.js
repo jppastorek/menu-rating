@@ -58,15 +58,16 @@ export default class User {
       `);
     }
     await db.close();
-    if (authenticated) return authenticated;
+    delete result.password;
+    if (authenticated) return {status: "authenticated", user: result};
   }
 
   async updateUser(user_id, column, newData) {
     let db = await this.openDB();
     const result = await db.run(`
       UPDATE users
-      SET ${column} = '${newData}
-      WHERE user_id = '${user_id};
+      SET ${column} = '${newData}'
+      WHERE user_id = '${user_id}';
     `);
     await db.close();
     return result;
@@ -78,5 +79,15 @@ export default class User {
       DELETE FROM users WHERE user_id = '${user_id}';
     `);
     await db.close();
+  }
+
+  async generateCode(user_id) {
+    let code = Math.floor((Math.random()*1000000)+1);
+    let db = await this.openDB();
+    await db.run(`
+      UPDATE users
+      SET validateCode = '${code}' WHERE user_id = '${user_id}';
+    `)
+    return code;
   }
 }

@@ -52,8 +52,13 @@ app.post("/api/login", async (req, res) => {
   user
     ? console.log("Login success!")
     : console.log("Try a different email or password.");
-  res.send("ok");
+  res.send(user);
   // if (user) return user;
+});
+
+app.post("/api/user/:id/generateCode", async (req, res) => {
+  let code = await userController.generateCode(req.params["id"]);
+  return res.send(code); //how does the user see the code?
 });
 
 //USER VALIDATE EMAIL
