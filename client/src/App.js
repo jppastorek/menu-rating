@@ -190,11 +190,13 @@ function App() {
         "Content-Type": "application/json",
       },
     });
+    const jsonData = await response.json();
     setInput({
       ...input,
-      showCode: response.body.code,
+      showCode: jsonData.code,
     });
-    return response.body.code;
+    console.log("success");
+    return jsonData.code;
   };
 
   return (
@@ -215,6 +217,7 @@ function App() {
         handleChangeInput={handleChangeInput}
         onSubmit={onValidate}
         validationCode={input.code}
+        generatedCode={input.showCode}
         onGenerate={getCode}
       />
 
