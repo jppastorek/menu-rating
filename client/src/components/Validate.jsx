@@ -1,7 +1,7 @@
 import React from "react";
 
 const ValidateForm = (props) => {
-  const { handleChangeInput, validationCode, onSubmit } = props;
+  const { handleChangeInput, validationCode, onSubmit, onGenerate } = props;
   return (
     <div id="container">
       <h2 className="header">Validate your account.</h2>
@@ -27,8 +27,16 @@ const ValidateForm = (props) => {
         Submit
       </button>
       <p>
-        Didn't get a code? <a href="localhost:3000">Click here.</a>
+        Didn't get a code?{" "}
+        <button
+          onClick={() => {
+            onGenerate(32);
+          }}
+        >
+          Click here.
+        </button>
       </p>
+      <p id="code">{validationCode}</p>
     </div>
   );
 };

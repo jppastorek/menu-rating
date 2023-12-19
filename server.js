@@ -58,7 +58,8 @@ app.post("/api/login", async (req, res) => {
 
 app.post("/api/user/:id/generateCode", async (req, res) => {
   let code = await userController.generateCode(req.params["id"]);
-  return res.send(code); //how does the user see the code?
+  console.log(code);
+  return code; //how does the user see the code?
 });
 
 //USER VALIDATE EMAIL

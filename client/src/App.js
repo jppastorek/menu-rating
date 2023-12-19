@@ -24,6 +24,7 @@ function App() {
     comment: "",
     rating: "",
     code: "",
+    showCode: "",
   });
 
   const [searchResults, setSearchResults] = useState({
@@ -182,6 +183,20 @@ function App() {
     return response;
   };
 
+  const getCode = async (id) => {
+    const response = await fetch(`/api/user/${id}/generateCode`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    setInput({
+      ...input,
+      showCode: response.body.code,
+    });
+    return response.body.code;
+  };
+
   return (
     <>
       <SignUpForm
@@ -199,7 +214,8 @@ function App() {
       <ValidateForm
         handleChangeInput={handleChangeInput}
         onSubmit={onValidate}
-        validationCode={"validationCode"}
+        validationCode={input.code}
+        onGenerate={getCode}
       />
 
       <LoginForm
