@@ -87,6 +87,9 @@ function App() {
           ...input,
           code: e.target.value,
         });
+        break;
+      default:
+      //do nothing
     }
   };
 

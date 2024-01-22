@@ -4,7 +4,8 @@ import Item from "./api/Item.js";
 import express from "express";
 import cors from "cors";
 const port = process.env.port || 5000;
-const db = "C:/Users/jp/WebDev/menu-rating/restaurant.db";
+const db = './restaurant.db'
+// const db = "C:/Users/jp/WebDev/menu-rating/restaurant.db";
 // const db = process.env.DATABASE_PATH || "C:/Users/jp/WebDev/menu-rating/restaurant.db";
 const userController = new User(db);
 const ratingController = new Ratings(db);
@@ -59,7 +60,7 @@ app.post("/api/login", async (req, res) => {
 app.post("/api/user/:id/generateCode", async (req, res) => {
   let code = await userController.generateCode(req.params["id"]);
   console.log(code);
-  return code; //how does the user see the code?
+  res.send({code: code}); //how does the user see the code?
 });
 
 //USER VALIDATE EMAIL
